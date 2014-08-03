@@ -110,7 +110,7 @@
     BUI.setDebug(debug);
     // 所有的模块都是依赖于jquery, 所以定义一个jquery的模块，并直接返回
     if (window.jQuery) {
-      define('jquery', [], function() {
+      window.define('jquery', [], function() {
         return window.jQuery;
       });
     }
