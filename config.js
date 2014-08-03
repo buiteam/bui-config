@@ -27,10 +27,12 @@ seajs.config({
 
 BUI.setDebug = function(debug) {
   BUI.debug = debug;
-  if (debug) {
-    seajs.config({
-      map : [
-        [/.js$/, '-debug.js']
+  if (!debug) {
+    //只有bui目录下面的文件使用-min.js
+    var regexp = new RegExp('^(' + loaderPath + '\\S*).js$');
+    seajs.config({  
+      map: [
+        [regexp, '$1-min.js']
       ]
     });
   }
