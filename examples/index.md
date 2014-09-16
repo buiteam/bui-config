@@ -5,7 +5,7 @@
 ## Normal usage
 
 ````javascript
-seajs.use('index', function(buiConfig) {
+seajs.use('config', function(config) {
 
 });
 ````

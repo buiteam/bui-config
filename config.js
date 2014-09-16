@@ -27,14 +27,24 @@ seajs.config({
 
 BUI.setDebug = function(debug) {
   BUI.debug = debug;
+  //只有bui目录下面的文件使用-min.js
+  var regexp = new RegExp('^(' + loaderPath + '\\S*).js$');
   if (!debug) {
-    //只有bui目录下面的文件使用-min.js
-    var regexp = new RegExp('^(' + loaderPath + '\\S*).js$');
     seajs.config({  
       map: [
         [regexp, '$1-min.js']
       ]
     });
+  }
+  else {
+    var map = seajs.data.map;
+    var mapReg;
+    for (var i = map.length - 1; i >= 0; i--) {
+      mapReg = map[i][0];
+      if (Object.prototype.toString.call(mapReg) === '[object RegExp]' && mapReg.toString() === regexp.toString()) {
+        map.splice(i, 1);
+      }
+    };
   }
 };
 BUI.setDebug(debug);
